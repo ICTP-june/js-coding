@@ -35,17 +35,6 @@
           </div>
         </div>
       </nav>
-      <div>
-        <ul>
-            <% data.forEach((d) => { %>
-                <li><%= d.title %></li>
-                <li><%= d.author %></li>
-                <li><%= d.publishedAt %></li>
-                <li><a href=\'<%= d.url %>\'><%= d.url %></a></li>
-                <hr/>
-            <% }) %>
-        </ul>
-      </div>
       <div class="row" data-masonry="{&quot;percentPosition&quot;: true }" style="position: relative; height: 690px;">
         <% data.forEach((d) => { %>
         <div class="col-sm-6 col-lg-4 mb-4" style="position: absolute; left: 0%; top: 0px;">
