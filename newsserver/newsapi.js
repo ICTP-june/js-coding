@@ -14,6 +14,21 @@ const getApiData = async () => {
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
+app.get('/domestic', async (req, res) => {
+    const result = [
+        {
+            urlToImage: '',
+            title: 'dummy title',
+            description: 'dummy description'
+        }
+    ]
+    res.render('domestic', {
+        one: "this is one",
+        two: "this is two",
+        data: result
+    });
+});
+
 app.get('/', async (req, res) => {
     const data = await getApiData();
     const result = data.map((object) => {
