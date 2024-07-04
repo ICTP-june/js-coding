@@ -34,5 +34,16 @@
           </div>
         </div>
       </nav>
+      <div>
+        <ul>
+            <% data.forEach((d) => { %>
+                <li><%= d.title %></li>
+                <li><%= d.author %></li>
+                <li><%= d.publishedAt %></li>
+                <li><a href=\'<%= d.url %>\'><%= d.url %></a></li>
+                <hr/>
+            <% }) %>
+        </ul>
+      </div>
 </body>
 </html>

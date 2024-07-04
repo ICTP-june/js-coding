@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const axios = require('axios').default;
 
-const API_KEY = 'YOUR_API_KEY';
+const API_KEY = '380ce161b7e444158a7e387fec0419d0';
 const getApiData = async () => {
     return await axios.get(`https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=${API_KEY}`)
                     .then(function(response) {
@@ -14,10 +14,12 @@ const getApiData = async () => {
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
+    const data = await getApiData();
     res.render('index', {
         one: "this is one",
-        two: "this is two"
+        two: "this is two",
+        data: data
     });
 });
 // app.get('/', async (request, response) => {
@@ -33,12 +35,6 @@ app.get('/', (req, res) => {
 //     //         author: 'author222',
 //     //         publishedAt: '2024-07-03 17:58:33',
 //     //         url: 'http://www.daum.com'
-//     //     },
-//     //     {
-//     //         title: 'title333',
-//     //         author: 'author3333',
-//     //         publishedAt: '2024-07-01 11:56:33',
-//     //         url: 'http://www.kakao.com'
 //     //     },
 //     // ]
 //     const data = await getApiData();
