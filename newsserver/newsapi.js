@@ -3,8 +3,8 @@ const app = express();
 const axios = require('axios').default;
 
 const API_KEY = '380ce161b7e444158a7e387fec0419d0';
-const getApiData = async () => {
-    return await axios.get(`https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=${API_KEY}`)
+const getApiData = async (countryCode) => {
+    return await axios.get(`https://newsapi.org/v2/top-headlines?country=${countryCode}&category=business&apiKey=${API_KEY}`)
                     .then(function(response) {
                         console.log(response.data.articles);
                         return response.data.articles;
@@ -14,14 +14,9 @@ const getApiData = async () => {
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
+// 국내기사 메뉴 클릭 시
 app.get('/domestic', async (req, res) => {
-    const result = [
-        {
-            urlToImage: '',
-            title: 'dummy title',
-            description: 'dummy description'
-        }
-    ]
+    const result = await getApiData('kr');
     res.render('domestic', {
         one: "this is one",
         two: "this is two",
@@ -30,7 +25,7 @@ app.get('/domestic', async (req, res) => {
 });
 
 app.get('/', async (req, res) => {
-    const data = await getApiData();
+    const data = await getApiData('us');
     const result = data.map((object) => {
         if(object.urlToImage !== null && object.urlToImage.endsWith('/')) {
             object.urlToImage = object.urlToImage.slice(0, -1);
