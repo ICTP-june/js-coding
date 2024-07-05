@@ -1,6 +1,11 @@
 const express = require('express');
 const app = express();
 const axios = require('axios').default;
+const testRoute = require('./controller/test');
+const domesticRoute = require('./controller/domestic');
+
+app.use('/test', testRoute);
+app.use('/domestic', domesticRoute);
 
 const API_KEY = '380ce161b7e444158a7e387fec0419d0';
 const getApiData = async (countryCode, category = 'business') => {
@@ -14,7 +19,7 @@ const getApiData = async (countryCode, category = 'business') => {
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
-app.get('/domestic-sports', async (req, res) => {
+app.get('/sports', async (req, res) => {
     const data = await getApiData('kr', 'sports');
     res.render('domestic-sports', {
         one: "this is one",
@@ -24,14 +29,14 @@ app.get('/domestic-sports', async (req, res) => {
 });
 
 // 국내기사 메뉴 클릭 시
-app.get('/domestic', async (req, res) => {
-    const result = await getApiData('kr');
-    res.render('domestic', {
-        one: "this is one",
-        two: "this is two",
-        data: result
-    });
-});
+// app.get('/domestic', async (req, res) => {
+//     const result = await getApiData('kr');
+//     res.render('domestic', {
+//         one: "this is one",
+//         two: "this is two",
+//         data: result
+//     });
+// });
 
 app.get('/', async (req, res) => {
     const data = await getApiData('us');
