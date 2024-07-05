@@ -51,6 +51,7 @@ const API_KEY = 'YOUR_API_KEY';
 - newsapi 실행
 ```
 newsserver\> node newsapi.js
+server listening on port 8000
 ```
 
 - 동작 확인
