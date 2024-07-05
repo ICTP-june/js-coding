@@ -12,20 +12,19 @@ const getApiData = async (countryCode, category = 'business') => {
 }
 
 router.get('/', async (req, res, next) => {
-    const result = await getApiData('kr');
-    res.render('domestic', {
+    const data = await getApiData('us');
+    const result = data.map((object) => {
+        if(object.urlToImage !== null && object.urlToImage.endsWith('/')) {
+            object.urlToImage = object.urlToImage.slice(0, -1);
+            return object;
+        } else {
+            return object;
+        }
+    });
+    res.render('index', {
         one: "this is one",
         two: "this is two",
         data: result
-    });
-});
-
-router.get('/sports', async (req, res, next) => {
-    const data = await getApiData('kr', 'sports');
-    res.render('domestic-sports', {
-        one: "this is one",
-        two: "this is two",
-        data: data
     });
 });
 
