@@ -3,8 +3,8 @@ const app = express();
 const axios = require('axios').default;
 
 const API_KEY = '380ce161b7e444158a7e387fec0419d0';
-const getApiData = async (countryCode) => {
-    return await axios.get(`https://newsapi.org/v2/top-headlines?country=${countryCode}&category=business&apiKey=${API_KEY}`)
+const getApiData = async (countryCode, category = 'business') => {
+    return await axios.get(`https://newsapi.org/v2/top-headlines?country=${countryCode}&category=${category}&apiKey=${API_KEY}`)
                     .then(function(response) {
                         console.log(response.data.articles);
                         return response.data.articles;
@@ -15,18 +15,7 @@ app.set('view engine', 'ejs');
 app.set('views', './views');
 
 app.get('/domestic-sports', async (req, res) => {
-    const data = [
-        {
-            source: { id: null, name: 'The Points Guy' },
-            author: 'Sean Cudahy',
-            title: 'ITA Airways set to join Lufthansa Group, with Star Alliance shift expected - The Points Guy',
-            description: "The European Union has approved Lufthansa Group's acquisition of Italian flag carrier ITA Airways. The airline is expected to join the Miles & More loyalty program and Star Alliance.",
-            url: 'https://thepointsguy.com/news/lufthansa-group-acquisition-ita-airways/',
-            urlToImage: 'https://thepointsguy.global.ssl.fastly.net/us/originals/2024/07/ita-dreamliner.jpeg',
-            publishedAt: '2024-07-03T17:46:44Z',
-            content: "European regulators have approved Lufthansa Group's bid to acquire a 41% stake in embattled Italian flag carrier ITA Airways, the company said Wednesday. The deal, expected to close later this year, … [+4036 chars]"
-          }
-    ]
+    const data = await getApiData('kr', 'sports');
     res.render('domestic-sports', {
         one: "this is one",
         two: "this is two",
