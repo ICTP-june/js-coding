@@ -1,11 +1,9 @@
 const express = require('express');
 const app = express();
 
-const testRoute = require('./controller/test');
 const domesticRoute = require('./controller/domestic');
 const rootRoute = require('./controller/root');
 
-app.use('/test', testRoute);
 app.use('/domestic', domesticRoute);
 app.use('/', rootRoute);
 
